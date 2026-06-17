@@ -1,7 +1,8 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  // Prisma client uses native binaries — prevent Next.js from bundling them
+  serverExternalPackages: ['@prisma/client', 'prisma'],
+}
 
-export default nextConfig;
+export default nextConfig
