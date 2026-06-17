@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { LayoutDashboard, FolderKanban, User, LogOut } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { signOutAction } from '@/actions/auth'
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -11,7 +12,11 @@ const navItems = [
   { href: '/profile', label: 'Profile', icon: User },
 ]
 
-export function Sidebar() {
+interface SidebarProps {
+  user: { name: string; email: string }
+}
+
+export function Sidebar({ user }: SidebarProps) {
   const pathname = usePathname()
 
   return (
@@ -36,13 +41,21 @@ export function Sidebar() {
           </Link>
         ))}
       </nav>
-      <button
-        type="button"
-        className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-      >
-        <LogOut className="h-4 w-4" />
-        Sign Out
-      </button>
+      <div className="space-y-1">
+        <div className="px-3 py-2">
+          <p className="text-sm font-medium truncate">{user.name}</p>
+          <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+        </div>
+        <form action={signOutAction}>
+          <button
+            type="submit"
+            className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+          >
+            <LogOut className="h-4 w-4" />
+            Sign Out
+          </button>
+        </form>
+      </div>
     </aside>
   )
 }
