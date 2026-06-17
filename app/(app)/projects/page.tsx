@@ -20,14 +20,16 @@ export default async function ProjectsPage() {
 
   return (
     <div className="p-6 space-y-8">
-      <div className="flex items-center justify-between">
+      <div className="flex items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold">Projects</h1>
           <p className="text-sm text-muted-foreground mt-1">
             {active.length} active project{active.length !== 1 ? 's' : ''}
           </p>
         </div>
-        <CreateProjectDialog />
+        <div className="shrink-0">
+          <CreateProjectDialog />
+        </div>
       </div>
 
       {active.length === 0 ? (

@@ -1,5 +1,6 @@
 import { PrismaClient, Role, TaskStatus, Priority } from './generated/prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
+import { hashPassword } from '@better-auth/utils/password'
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! })
 const prisma = new PrismaClient({ adapter })
@@ -16,12 +17,8 @@ async function main() {
   await prisma.verification.deleteMany()
   await prisma.user.deleteMany()
 
-  // Users — passwords are managed by Better Auth; seed plain user records
-  // Demo password for all: Demo1234!
-  // Better Auth will hash these via its own sign-up flow.
-  // For seeding we insert the Account row with a bcrypt hash.
-  const { hashSync } = await import('bcryptjs')
-  const passwordHash = hashSync('Demo1234!', 10)
+  // Hash using the same algorithm Better Auth uses so demo accounts work at login
+  const passwordHash = await hashPassword('Demo1234!')
 
   const admin = await prisma.user.create({
     data: {
