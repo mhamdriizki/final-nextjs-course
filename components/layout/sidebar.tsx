@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { LayoutDashboard, FolderKanban, User, LogOut } from 'lucide-react'
@@ -13,11 +14,18 @@ const navItems = [
 ]
 
 interface SidebarProps {
-  user: { name: string; email: string }
+  user: { name: string; email: string; image?: string | null }
 }
 
 export function Sidebar({ user }: SidebarProps) {
   const pathname = usePathname()
+
+  const initials = user.name
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2)
 
   return (
     <aside className="hidden md:flex h-screen w-64 flex-col border-r bg-background px-4 py-6">
@@ -42,9 +50,26 @@ export function Sidebar({ user }: SidebarProps) {
         ))}
       </nav>
       <div className="space-y-1">
-        <div className="px-3 py-2">
-          <p className="text-sm font-medium truncate">{user.name}</p>
-          <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+        <div className="flex items-center gap-2.5 px-3 py-2">
+          <div className="relative h-7 w-7 shrink-0">
+            {user.image ? (
+              <Image
+                src={user.image}
+                alt={user.name}
+                fill
+                className="rounded-full object-cover"
+                sizes="28px"
+              />
+            ) : (
+              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-muted text-xs font-semibold">
+                {initials}
+              </div>
+            )}
+          </div>
+          <div className="min-w-0">
+            <p className="text-sm font-medium truncate">{user.name}</p>
+            <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+          </div>
         </div>
         <form action={signOutAction}>
           <button

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, X, LayoutDashboard, FolderKanban, User, LogOut } from 'lucide-react'
@@ -14,7 +15,7 @@ const navItems = [
 ]
 
 interface MobileNavProps {
-  user: { name: string; email: string }
+  user: { name: string; email: string; image?: string | null }
 }
 
 export function MobileNav({ user }: MobileNavProps) {
@@ -75,9 +76,26 @@ export function MobileNav({ user }: MobileNavProps) {
             </nav>
 
             <div className="space-y-1">
-              <div className="px-3 py-2">
-                <p className="truncate text-sm font-medium">{user.name}</p>
-                <p className="truncate text-xs text-muted-foreground">{user.email}</p>
+              <div className="flex items-center gap-2.5 px-3 py-2">
+                <div className="relative h-7 w-7 shrink-0">
+                  {user.image ? (
+                    <Image
+                      src={user.image}
+                      alt={user.name}
+                      fill
+                      className="rounded-full object-cover"
+                      sizes="28px"
+                    />
+                  ) : (
+                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-muted text-xs font-semibold">
+                      {user.name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2)}
+                    </div>
+                  )}
+                </div>
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-medium">{user.name}</p>
+                  <p className="truncate text-xs text-muted-foreground">{user.email}</p>
+                </div>
               </div>
               <form action={signOutAction}>
                 <button
