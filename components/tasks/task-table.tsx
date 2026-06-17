@@ -100,12 +100,12 @@ export function TaskTable({ tasks }: { tasks: Task[] }) {
 
   return (
     <div className="space-y-3">
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center gap-2">
         <input
           value={globalFilter}
           onChange={(e) => setGlobalFilter(e.target.value)}
           placeholder="Search tasks…"
-          className="h-8 w-64 rounded-md border border-input bg-background px-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+          className="h-8 min-w-0 flex-1 rounded-md border border-input bg-background px-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring sm:flex-none sm:w-56"
         />
         <select
           onChange={(e) => {
@@ -133,8 +133,8 @@ export function TaskTable({ tasks }: { tasks: Task[] }) {
         </select>
       </div>
 
-      <div className="rounded-lg border overflow-hidden">
-        <table className="w-full text-sm">
+      <div className="overflow-x-auto rounded-lg border">
+        <table className="w-full min-w-160 text-sm">
           <thead className="bg-muted/50">
             {table.getHeaderGroups().map((hg) => (
               <tr key={hg.id}>

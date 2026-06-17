@@ -44,7 +44,7 @@ export default async function ProjectPage({ params }: Props) {
 
   return (
     <div className="p-6 space-y-6">
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex items-center gap-3 min-w-0">
           {project.color && (
             <div className="h-4 w-4 shrink-0 rounded-full" style={{ backgroundColor: project.color }} />
@@ -56,7 +56,7 @@ export default async function ProjectPage({ params }: Props) {
             )}
           </div>
         </div>
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-2 sm:shrink-0">
           {project.archived && <Badge variant="secondary">Archived</Badge>}
           <CreateTaskDialog projectId={id} members={project.members} />
           <Link

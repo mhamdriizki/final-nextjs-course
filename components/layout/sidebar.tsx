@@ -20,7 +20,7 @@ export function Sidebar({ user }: SidebarProps) {
   const pathname = usePathname()
 
   return (
-    <aside className="flex h-screen w-64 flex-col border-r bg-background px-4 py-6">
+    <aside className="hidden md:flex h-screen w-64 flex-col border-r bg-background px-4 py-6">
       <Link href="/dashboard" className="mb-8 px-2 text-xl font-bold">
         ProjectFlow
       </Link>

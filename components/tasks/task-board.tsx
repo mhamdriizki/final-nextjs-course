@@ -41,11 +41,12 @@ export function TaskBoard({ tasks }: { tasks: Task[] }) {
   }
 
   return (
-    <div className="grid grid-cols-3 gap-4 min-h-100">
+    <div className="overflow-x-auto pb-2">
+      <div className="flex gap-4 min-h-100" style={{ minWidth: 'calc(3 * 18rem + 2 * 1rem)' }}>
       {COLUMNS.map(({ key, label }) => {
         const columnTasks = optimisticTasks.filter((t) => t.status === key)
         return (
-          <div key={key} className="flex flex-col gap-2">
+          <div key={key} className="flex w-72 shrink-0 flex-col gap-2">
             <div className="flex items-center justify-between px-1">
               <span className="text-sm font-medium">{label}</span>
               <span className="text-xs text-muted-foreground bg-muted rounded-full px-2 py-0.5">
@@ -64,6 +65,7 @@ export function TaskBoard({ tasks }: { tasks: Task[] }) {
           </div>
         )
       })}
+      </div>
     </div>
   )
 }

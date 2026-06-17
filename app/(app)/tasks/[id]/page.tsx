@@ -85,7 +85,7 @@ export default async function TaskPage({ params }: Props) {
       <Separator />
 
       {/* Meta */}
-      <dl className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm">
+      <dl className="grid grid-cols-1 gap-x-8 gap-y-3 text-sm sm:grid-cols-2">
         <div>
           <dt className="text-muted-foreground">Assignee</dt>
           <dd className="font-medium mt-0.5">{task.assignee?.name ?? '—'}</dd>
