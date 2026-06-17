@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { MobileNav } from '@/components/layout/mobile-nav'
 
 interface HeaderProps {
-  user: { name: string; email: string }
+  user: { name: string; email: string; image?: string | null }
 }
 
 export function Header({ user }: HeaderProps) {

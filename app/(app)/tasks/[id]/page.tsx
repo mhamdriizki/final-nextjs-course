@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils'
 import { TaskStatusBadge, TaskPriorityBadge } from '@/components/tasks/task-status-badge'
 import { CommentForm } from '@/components/tasks/comment-form'
 import { CommentList } from '@/components/tasks/comment-list'
+import { AttachmentUpload } from '@/components/uploads/attachment-upload'
 import { deleteTask } from '@/actions/tasks'
 
 interface Props {
@@ -120,28 +121,30 @@ export default async function TaskPage({ params }: Props) {
         </>
       )}
 
-      {task.attachments.length > 0 && (
-        <>
-          <Separator />
-          <div className="space-y-2">
-            <h2 className="text-sm font-medium">Attachments ({task.attachments.length})</h2>
-            <ul className="space-y-1">
-              {task.attachments.map((a) => (
-                <li key={a.id}>
-                  <a
-                    href={a.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-primary hover:underline"
-                  >
-                    {a.filename}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </>
-      )}
+      <Separator />
+
+      <div className="space-y-3">
+        <h2 className="text-sm font-medium">
+          Attachments{task.attachments.length > 0 && ` (${task.attachments.length})`}
+        </h2>
+        {task.attachments.length > 0 && (
+          <ul className="space-y-1">
+            {task.attachments.map((a) => (
+              <li key={a.id}>
+                <a
+                  href={a.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-primary hover:underline"
+                >
+                  {a.filename}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+        <AttachmentUpload taskId={task.id} />
+      </div>
 
       <Separator />
 
