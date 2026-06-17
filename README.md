@@ -36,6 +36,17 @@ bun --bun next dev
 | `GOOGLE_CLIENT_ID` | Google OAuth client ID |
 | `GOOGLE_CLIENT_SECRET` | Google OAuth client secret |
 | `UPLOADTHING_TOKEN` | UploadThing API token |
+| `NEXT_PUBLIC_SITE_URL` | Canonical site URL for OG tags, sitemap, and robots (e.g. `https://your-app.vercel.app`) |
+
+## Deploy to Vercel
+
+1. Push the repo and import it in the [Vercel dashboard](https://vercel.com/new).
+2. Set all environment variables above in **Project → Settings → Environment Variables**. For `BETTER_AUTH_URL` and `NEXT_PUBLIC_BETTER_AUTH_URL`, use your Vercel deployment URL.
+3. Vercel will run `bunx prisma migrate deploy && bun run build` automatically on each deploy (`vercel.json` configures this).
+4. After the first deploy, the database is migrated. Run the seed once if you need demo data:
+   ```bash
+   DATABASE_URL=<your-prod-url> bun run db:seed
+   ```
 
 ## Demo accounts
 
